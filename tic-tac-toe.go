@@ -22,9 +22,14 @@ func (b *Board) get(x, y int) string {
 }
 
 func (b *Board) judge() bool {
-	// 縦列判定
 	for i := 0; i < 3; i++ {
+		// 縦列判定
 		sum := b.tokens[i] + b.tokens[i+3] + b.tokens[i+6]
+		if sum == 3 || sum == -3 {
+			return true
+		}
+		// 横列判定
+		sum = b.tokens[i*3] + b.tokens[i*3+1] + b.tokens[i*3+2]
 		if sum == 3 || sum == -3 {
 			return true
 		}
