@@ -78,16 +78,19 @@ func main() {
 	mark := []string{"o", "x"}
 	player := 0
 	for i := 0; i < 9; i++ {
-		var str string
-		fmt.Printf("Player %d: Input(x, y) ", player+1)
-		fmt.Scan(&str)
-		ope := strings.Split(str, ",")
-		x, _ := strconv.Atoi(ope[0])
-		y, _ := strconv.Atoi(ope[1])
-		err := b.put(x, y, mark[player])
-		if err != nil {
-			fmt.Println("Invalid Operation. One more.")
-			continue
+		for {
+			var str string
+			fmt.Printf("Player %d: Input(x, y) ", player+1)
+			fmt.Scan(&str)
+			ope := strings.Split(str, ",")
+			x, _ := strconv.Atoi(ope[0])
+			y, _ := strconv.Atoi(ope[1])
+			err := b.put(x, y, mark[player])
+			if err != nil {
+				fmt.Println("Invalid Operation. One more.")
+				continue
+			}
+			break
 		}
 		b.print()
 		if b.judge() {
