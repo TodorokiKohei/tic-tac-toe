@@ -75,14 +75,26 @@ func main() {
 	b := &Board{
 		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
-	var str string
-	for {
-		fmt.Print("Player 1: Input(x, y) ")
+	mark := []string{"o", "x"}
+	player := 0
+	for i := 0; i < 9; i++ {
+		var str string
+		fmt.Printf("Player %d: Input(x, y) ", player+1)
 		fmt.Scan(&str)
 		ope := strings.Split(str, ",")
 		x, _ := strconv.Atoi(ope[0])
 		y, _ := strconv.Atoi(ope[1])
-		b.put(x, y, "o")
+		err := b.put(x, y, mark[player])
+		if err != nil {
+			fmt.Println("Invalid Operation. One more.")
+			continue
+		}
 		b.print()
+		if b.judge() {
+			fmt.Printf("Player %d is won.\n", player+1)
+			return
+		}
+		player = (player + 1) % 2
 	}
+	fmt.Println("Draw")
 }
