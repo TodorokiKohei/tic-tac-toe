@@ -106,3 +106,17 @@ func TestInvalidOperation01(t *testing.T) {
 		t.Errorf("Invalid Operation")
 	}
 }
+
+func TestPrint(t *testing.T) {
+	b := &Board{
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	b.print()
+
+	b.put(0, 0, "o")
+	b.print()
+	b.put(0, 1, "x")
+	b.print()
+	b.put(0, 1, "o") // 無効な操作
+	b.print()
+}

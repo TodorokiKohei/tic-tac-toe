@@ -1,6 +1,11 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+	"strconv"
+	"strings"
+)
 
 type Board struct {
 	tokens []int
@@ -29,7 +34,7 @@ func (b *Board) get(x, y int) string {
 	} else if b.tokens[x+3*y] == -1 {
 		return "x"
 	}
-	return ""
+	return "."
 }
 
 func (b *Board) judge() bool {
@@ -57,6 +62,27 @@ func (b *Board) judge() bool {
 	return false
 }
 
-func main() {
+func (b *Board) print() {
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			fmt.Print(b.get(i, j))
+		}
+		fmt.Println()
+	}
+}
 
+func main() {
+	b := &Board{
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	var str string
+	for {
+		fmt.Print("Player 1: Input(x, y) ")
+		fmt.Scan(&str)
+		ope := strings.Split(str, ",")
+		x, _ := strconv.Atoi(ope[0])
+		y, _ := strconv.Atoi(ope[1])
+		b.put(x, y, "o")
+		b.print()
+	}
 }
